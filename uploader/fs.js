@@ -7,6 +7,7 @@ const fs = require('fs');
 const multer = require('multer');
 const storyBuilder = require('../client/shared/story-builder');
 const config = require('../config.json');
+const AdmZip = require('adm-zip');
 
 
 /**
@@ -21,7 +22,11 @@ exports.story = story => new Promise((resolve, reject) => {
     if (err) {
       return reject(new Error('Error writing to filesystem'));
     } else {
+      var zip = new AdmZip();
+      zip.addLocalFile(`${__dirname}/../public/uploads/s/${story._id}.html`);
+      zip.writeZip(`${__dirname}/../public/uploads/s/${story._id}.zip`);
       story.url = storyUrl(story._id)
+      story.zipUrl = storyZipUrl(story._id)
       return resolve(story);
     }
   });
@@ -61,3 +66,4 @@ fs.unlink(`${__dirname}/../public/uploads/s/${id}.html`), err => {
  */
 
 const storyUrl = id => `/uploads/s/${id}.html`
+const storyZipUrl = id => `/uploads/s/${id}.zip`
