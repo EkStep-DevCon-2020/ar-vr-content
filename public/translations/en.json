@@ -116,7 +116,7 @@
     "links": {
       "title": "Links",
       "description": "Links are a way to navigate the scene in a non-linear fashion. You can attach a link to an image or video just by specifying which scene you want to link to. Once you do this, the user will see a cursor to point that on click will automatically go to the scene that you want.",
-      "preview": "My first scene lasts <span class='cm-number'>4 seconds</span> and displays a <span class='cm-atom'>text</span> that says <span class='cm-string'>\"Wait for it...\"</span>\n\nThe second shows an <span class='cm-atom'>image</span> of the Guri logo <span class='cm-string'>https://s3.amazonaws.com/gurivr/logo.png</span> that points to the first scene when the user clicks on it.\n\n"
+      "preview": "My first scene lasts <span class='cm-number'>4 seconds</span> and displays a <span class='cm-atom'>text</span> that says <span class='cm-string'>\"Wait for it...\"</span>\n\nThe second shows an <span class='cm-atom'>image</span> of the Guri logo <span class='cm-string'>/public/logo_400x400.jpg</span> that points to the first scene when the user clicks on it.\n\n"
     },
     "speech_recognition": {
       "title": "Speech recognition",
@@ -166,7 +166,7 @@
       "tagline": "Describe your VR experience and<br/>the editor will do the rest."
     },
     "preview": {
-      "text": "You not need to be a coder to create VR experiences. The GuriVR editor interprets your words and creates the world you described.\n\nTry adding some scenes. For example my first scene will last 500 seconds and display an image located at https://s3.amazonaws.com/gurivr/logo.png along with a text saying: \"Guri is cool!\" to my left and a panorama located at https://s3.amazonaws.com/gurivr/pano.jpg\n\nTry adding more scenes...\n\nhint: Try with words like audio, panorama, text, videosphere, voiceover and chart. You can also drag your files into the editor and get back a url or even find images and panoramas enclosing the search terms inside double quotes 🙀"
+      "text": "You not need to be a coder to create VR experiences. The GuriVR editor interprets your words and creates the world you described.\n\nTry adding some scenes. For example my first scene will last 500 seconds and display an image located at /public/logo_400x400.jpg along with a text saying: \"Guri is cool!\" to my left and a panorama located at https://s3.amazonaws.com/gurivr/pano.jpg\n\nTry adding more scenes...\n\nhint: Try with words like audio, panorama, text, videosphere, voiceover and chart. You can also drag your files into the editor and get back a url or even find images and panoramas enclosing the search terms inside double quotes 🙀"
     },
     "templates": {
       "start": "...or start with a Template",
