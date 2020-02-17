@@ -25,7 +25,7 @@ const styles = {
   container: style({
     padding: 20,
     margin: 0,
-    backgroundColor: '#282C34',
+    backgroundColor: '#024f9d',
     borderRadius: 3,
     color: '#818181',
     fontSize: 16,

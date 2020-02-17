@@ -171,7 +171,7 @@ const styles = {
 
   header: style({
     display: 'flex',
-    backgroundColor: '#282C34',
+    backgroundColor: '#024f9d',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
     flexWrap: 'wrap',

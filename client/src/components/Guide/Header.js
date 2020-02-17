@@ -8,7 +8,7 @@ import { Link } from 'preact-router'
 
 export default () => (
   <header {...styles.header}>
-    <Link href='/'><Logo color='#5A33A2' /></Link>
+    {/* <Link href='/'><Logo color='#5A33A2' /></Link> */}
     <div {...styles.navigation}>
       <Navbar color='rgba(0, 0, 0, .4)' activeColor='#5A33A2' active='guide' />
       <div {...styles.switchContainer}>

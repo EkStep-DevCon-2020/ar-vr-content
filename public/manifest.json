@@ -1,11 +1,11 @@
 {
-  "short_name": "GuriVR",
-  "name": "Guri VR",
+  "short_name": "SuperHeroes DevCon 2020",
+  "name": "DevCon 2020 VR",
   "icons": [
     {
-      "src": "/logo.png",
+      "src": "/logo_400x400.jpg",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/jpg"
     }
   ],
   "background_color": "#FFFFFF",
