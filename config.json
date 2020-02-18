@@ -1,10 +1,10 @@
 {
   "server": {
     "port": 4444,
-    "baseURL": "http://localhost:4444"
+    "baseURL": "http://127.0.0.1:4444"
   },
   "db": {
-    "database": "mongodb://0.0.0.0:27017/guri"
+    "database": "mongodb://127.0.0.1:27017/guri"
   },
   "session": {
     "secret": "my secret",
