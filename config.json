@@ -4,7 +4,7 @@
     "baseURL": "http://localhost:4444"
   },
   "db": {
-    "database": "mongodb://localhost/guri"
+    "database": "mongodb://mongo:27017/guri"
   },
   "session": {
     "secret": "my secret",
