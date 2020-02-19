@@ -1,15 +1,31 @@
-version: "2"
+# version: "2"
+# services:
+#   app:
+#     container_name: app
+#     restart: always
+#     build: .
+#     ports:
+#       - "80:4444"
+#     links:
+#       - mongo
+#   mongo:
+#     container_name: mongodb
+#     image: mongo
+#     ports:
+#       - "27017:27017"
+
+version: "3"
 services:
   app:
-    container_name: app
+    container_name: express-mongo
     restart: always
-    build: .
+    build: ./
     ports:
       - "80:4444"
     links:
       - mongo
   mongo:
-    container_name: mongodb
+    container_name: mongo
     image: mongo
     ports:
       - "27017:27017"
