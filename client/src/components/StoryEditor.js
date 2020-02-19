@@ -118,7 +118,7 @@ const Toolbar = ({ onSave, onPreview, onShare, title, onChangeTitle, id }) => (
       <button {...styles.button} onClick={onSave}>{t('editor.save')}</button>
     </div>
     <div>
-      {/* {id ? <button {...styles.button} onClick={onShare}>{t('editor.share')}</button> : null} */}
+      {id ? <button {...styles.button} onClick={onShare}>{t('editor.share')}</button> : null}
       <button {...styles.button} onClick={onPreview}>{t('editor.preview')}</button>
     </div>
   </footer>
