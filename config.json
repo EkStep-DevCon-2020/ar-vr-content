@@ -4,7 +4,7 @@
     "baseURL": "http://127.0.0.1:4444"
   },
   "db": {
-    "database": "mongodb://mongo:27017/guri"
+    "database": "mongodb://127.0.0.1:27017/guri"  
   },
   "session": {
     "secret": "my secret",

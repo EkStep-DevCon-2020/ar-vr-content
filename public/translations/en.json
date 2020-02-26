@@ -206,11 +206,11 @@
   "editor": {
     "title_missing": "Please enter a name for the story",
     "title": "title",
-    "save": "Save",
+    "save": "Publish",
     "share": "Share link",
-    "preview": "Fullscreen preview",
-    "initial_title": "Untitled story",
-    "initial_text": "Welcome to the NextGen SuperHeroes AR/VR Editor 🎉. You can create your VR experience by just describing how you would like your scene to be. Every paragraph will be a scene as soon as you add an entity to it. Let's start with an example:\n\nMy first scene lasts 5 seconds and has a text that says \"This is my first scene. This is amazing!\".\n\nThe second is 30 seconds and have just a panorama located at https://ucarecdn.com/8e6da182-c794-4692-861d-d43da2fd5507/ along with the audio https://ucarecdn.com/49f6a82b-30fc-4ab9-80b5-85f286d67830/\n\nhint: Try with words like audio, panorama, text, videosphere, voiceover and chart.\n\nYou can also drag your files into the editor and get back a url 🙀"
+    "preview": "preview",
+    "initial_title": "Devcon2020",
+    "initial_text": "Hint: Try with words like audio, panorama, text, videosphere, voiceover and chart.\n\ntext \"Welcome to the super hero production\" 10 seconds\n\nvideosphere https://cdn.glitch.com/eb8b5b90-b564-46cc-a9bd-abd27ce76783%2Fvideo.mp4?1524149938496"
   },
   "stories": {
     "delete_confirm": "Are you sure you want to delete this story?",

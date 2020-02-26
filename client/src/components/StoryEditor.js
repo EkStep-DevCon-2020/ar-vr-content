@@ -62,7 +62,7 @@ export default class StoryEditor extends Component {
         .then(story => {
           this.setState(Object.assign({}, this.state, { _id: story._id }))
           route(`/stories/${story._id}`)
-        }).then(() => console.log(this.state, 'state'))
+        }).then(() => window.alert(t('editor.title_missing')))
     }
   }
 

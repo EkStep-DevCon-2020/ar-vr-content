@@ -19,7 +19,7 @@ var TYPES = {
 }
 
 var ENTITIES_REGEX = new RegExp('(^|\\s|;|\\.|,|:)(' + Object.keys(TYPES).map(function (type) { return TYPES[type].alias.concat(type).join('|') }).join('|') + ')(\\s|$|;|\\.|,|:)', 'gi')
-var LOCATION_REGEX = /right|left|behind|front|above|below|atrás|frente|izquierda|derecha|arriba|abajo/gi
+var LOCATION_REGEX = /right|left|behind|front|above|below|atrás|frente|izquierda|derecha|arriba|abajo|बाएं/gi
 var SIZE_REGEX = /tiny|small|large|huge|diminuto|pequeño|grande|enorme/i
 var SUN_POSITION_REGEX = /sunrise|sunset|morning|noon|afternoon|evening|night|amanecer|atardecer|mañana|mediodía|tarde|noche/i
 var LATLON_REGEX = /\-?\d+\.\d+,\s*\-?\d+\.\d+/
@@ -277,6 +277,7 @@ function getAbsPos (positions, width, height) {
     switch (positions[i].type) {
       case 'left':
       case 'izquierda':
+      case 'बाएं':
         initialPosition[0] -= positions[i].distance || 7
         initialPosition[1] += ySize
         initialPosition[2] -= xSize

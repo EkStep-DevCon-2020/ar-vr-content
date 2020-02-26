@@ -12,6 +12,8 @@ const FormData = require('form-data');
 const Blob = require('node-blob');
 const fetch = require('node-fetch');
 const request = require('request');
+global.contentDoID;
+
 
 //URL constants for Devcon 2020
 const createContentUrl = 'https://devcon.sunbirded.org/api/private/content/v3/create';
@@ -52,7 +54,8 @@ exports.story = story => new Promise((resolve, reject) => {
                 createZip(story._id)
                 story.url = storyUrl(story._id)
                 story.zipUrl = storyZipUrl(story._id)
-                createContent(story._id);
+                createContent(story._id, story)
+                story.publishedUrl = publishedUrl('test')
                 return resolve(story);
             }
         });
@@ -74,7 +77,7 @@ function createZip (id) {
 }
 
 
-function createContent(id) {
+function createContent(id, story) {
     const data = {
         request: {
             content: {
@@ -82,18 +85,18 @@ function createContent(id) {
                 contentType: 'Resource',
                 mediaType: 'content',
                 code: 'kp.test.res.1',
-                mimeType: 'application/vnd.ekstep.html-archive'
+                mimeType: 'application/vnd.ekstep.html-archive',
+                // createdBy: profileId
             }
         }
     };
 
-    axios.post(createContentUrl, data, {
+      axios.post(createContentUrl, data, {
             headers: httpOptions.headers
         })
         .then((response) => {
-            //getPresignedUrl(response.data.result.node_id, id);
             const file = `${__dirname}/../public/uploads/s/${id}.zip`;
-            request.post({
+              request.post({
                 url: `https://devcon.sunbirded.org/api/private/content/v3/upload/${response.data.result.node_id}`,
                 headers: {
                     Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIyZWU4YTgxNDNiZWE0NDU4YjQxMjcyNTU5ZDBhNTczMiJ9.7m4mIUaiPwh_o9cvJuyZuGrOdkfh0Nm0E_25Cl21kxE'
@@ -104,13 +107,16 @@ function createContent(id) {
                     filename: `${id}`
                 },
             }, function(error, response, body) {
+                const devconurl = JSON.parse(body).result.node_id
                 console.log(JSON.parse(body).result.node_id);
                 publishCopiedContent(JSON.parse(body).result.node_id)
+                // return devconurl
             });
         })
         .catch((error) => {
             console.log("Error: Error in retrieving createContentObject  " + error);
       })
+     
 }
 
 /***
@@ -118,7 +124,7 @@ function createContent(id) {
  * Function for publish content on Content_do_id
  *
  * */
-function publishCopiedContent (id){
+function publishCopiedContent (id, devconurl){
     const publishAPIUrl = publishUrl +'/'+id;
     const httpOptions = {
       headers: {
@@ -134,7 +140,7 @@ function publishCopiedContent (id){
         }
       }
       try {
-          axios.post(publishAPIUrl,data,{headers: httpOptions.headers})
+        axios.post(publishAPIUrl,data,{headers: httpOptions.headers})
             .then((response) => {
               console.log("Successfully Uploaded:"+ response);
           }).catch((error) => {
@@ -145,71 +151,68 @@ function publishCopiedContent (id){
       }
     }
 
-function getPresignedUrl(contentId, id) {
-    const data = {
-        request: {
-            content: {
-                fileName: id + '.zip'
-            }
-        }
-    };
-    const url = `${presignedUrl}/${contentId}`;
+// function getPresignedUrl(contentId, id) {
+//     const data = {
+//         request: {
+//             content: {
+//                 fileName: id + '.zip'
+//             }
+//         }
+//     };
+//     const url = `${presignedUrl}/${contentId}`;
 
-    axios.post(url, data, {
-            headers: httpOptions.headers
-        })
-        .then((response) => {
-            uploadFile(response, id);
-        })
-        .catch((error) => {
-            console.log('Error: Error on getPresignedURL with ' + error)
-        })
-}
+//     axios.post(url, data, {
+//             headers: httpOptions.headers
+//         })
+//         .then((response) => {
+//             uploadFile(response, id);
+//         })
+//         .catch((error) => {
+//             console.log('Error: Error on getPresignedURL with ' + error)
+//         })
+// }
 
-function uploadFile(res, id) {
-    const url = res.data.result.pre_signed_url;
-    const file = `${__dirname}/../public/uploads/s/${id}.zip`;
-    request.put({
-        url: url,
-        headers: httpOptions2.headers,
-        formData: {
-            file: fs.createReadStream(file),
-        },
-    }, function(error, response, body) {
-        console.log(body);
-    });
-    
-}
+// function uploadFile(res, id) {
+//     const url = res.data.result.pre_signed_url;
+//     const file = `${__dirname}/../public/uploads/s/${id}.zip`;
+//     request.put({
+//         url: url,
+//         headers: httpOptions2.headers,
+//         formData: {
+//             file: fs.createReadStream(file),
+//         },
+//     }, function(error, response, body) {
+//         console.log(body);
+//     });
+// }
 
+// function bufferFile(relPath) {
+//     return fs.readFileSync(path.join(__dirname, relPath)); 
+//   }
 
-function bufferFile(relPath) {
-    return fs.readFileSync(path.join(__dirname, relPath)); 
-  }
+// function updateContentWithURL(ContentFileURL, contentId) {
+//     const data = new FormData();
+//     data.append('fileUrl', ContentFileURL);
+//     data.append('mimeType', 'application/vnd.ekstep.html-archive');
+//     const httpOptions = {
+//         headers: {
+//             'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIyZWU4YTgxNDNiZWE0NDU4YjQxMjcyNTU5ZDBhNTczMiJ9.7m4mIUaiPwh_o9cvJuyZuGrOdkfh0Nm0E_25Cl21kxE',
+//             'X-Channel-Id': 'in.ekstep',
+//             'content-type': 'application/json'
+//         }
+//     };
+//     const url = uploadUrl + '/' + contentId;
 
+//     axios.post(url, data, {
+//             headers: httpOptions.headers
+//         })
+//         .then((response) => {
 
-function updateContentWithURL(ContentFileURL, contentId) {
-    const data = new FormData();
-    data.append('fileUrl', ContentFileURL);
-    data.append('mimeType', 'application/vnd.ekstep.html-archive');
-    const httpOptions = {
-        headers: {
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIyZWU4YTgxNDNiZWE0NDU4YjQxMjcyNTU5ZDBhNTczMiJ9.7m4mIUaiPwh_o9cvJuyZuGrOdkfh0Nm0E_25Cl21kxE',
-            'X-Channel-Id': 'in.ekstep',
-            'content-type': 'application/json'
-        }
-    };
-    const url = uploadUrl + '/' + contentId;
+//         }).catch((error) => {
+//             console.log('Error: Error on uploadFile with ++++++++++++++++++++++++++++' + error)
+//         });
 
-    axios.post(url, data, {
-            headers: httpOptions.headers
-        })
-        .then((response) => {
-
-        }).catch((error) => {
-            console.log('Error: Error on uploadFile with ++++++++++++++++++++++++++++' + error)
-        });
-
-}
+// }
 
 
 exports.asset = multer({
@@ -243,3 +246,4 @@ exports.deleteStory = id => new Promise((resolve, reject) =>
 
 const storyUrl = id => `/uploads/s/${id}.html`
 const storyZipUrl = id => `/uploads/s/${id}.zip`
+const publishedUrl = id => `https://devcon.sunbirded.org/play/content/${id}?contentType=Resource`
